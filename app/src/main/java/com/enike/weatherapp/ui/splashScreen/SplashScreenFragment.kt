@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.enike.weatherapp.Constants
 import com.enike.weatherapp.R
 import com.enike.weatherapp.Utils
 import com.enike.weatherapp.core.BaseFragment
@@ -26,7 +27,7 @@ class SplashScreenFragment :
                 view.findNavController()
                     .navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
             }
-        }, Utils.Constants.SPLASH_SCREEN_DURATION)
+        }, Constants.SPLASH_SCREEN_DURATION)
     }
 
     private fun loadAnimations() {
