@@ -11,11 +11,5 @@ import com.enike.weatherapp.core.BaseFragment
 import com.enike.weatherapp.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    override fun start() {
-        super.start()
-        binding.searchIcon.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
-        }
-    }
 
 }
