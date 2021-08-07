@@ -8,7 +8,6 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        app:layoutDescription="cloud_image"
         android:id="@+id/navHeaderImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
