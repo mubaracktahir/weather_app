@@ -16,6 +16,11 @@ import com.enike.weatherapp.core.BaseFragment
 import com.enike.weatherapp.core.FullScreenBaseFragment
 import com.enike.weatherapp.databinding.FragmentSplashScreenBinding
 
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.enike.weatherapp.MainActivity
+
+
 class SplashScreenFragment :
     FullScreenBaseFragment<FragmentSplashScreenBinding>(R.layout.fragment_splash_screen) {
 

@@ -1,7 +1,5 @@
 package com.enike.weatherapp
 
-import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,13 +9,11 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.enike.weatherapp.databinding.ActivityMainBinding
-import com.enike.weatherapp.ui.home.HomeFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +21,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var navController: NavController
     lateinit var drawer: DrawerLayout
     lateinit var binding: ActivityMainBinding
+    lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +34,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-
-        //for appbar
+        //for appbar & drawer layout
         setSupportActionBar(binding.toolbar)
-
-        binding.navView.setNavigationItemSelectedListener(this)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.homeFragment), binding.drawerLayout)
-        setupActionBarWithNavController(navController, drawer)
-        setupWithNavController(binding.toolbar, navController, appBarConfiguration)
+        val appBarConfig = AppBarConfiguration(setOf(R.id.homeFragment), binding.drawerLayout)
+        setupWithNavController(binding.toolbar, navController, appBarConfig)
         setupWithNavController(binding.navView, navController)
-        binding.toolbar.overflowIcon = AppCompatResources.getDrawable(this, R.drawable.ic_menu_bar)
-        NavigationUI.setupActionBarWithNavController(this, navController)
-        AppBarConfiguration(navController.graph, drawer)
-        setupWithNavController(binding.navView, navController)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         setupNavigation()
 
@@ -74,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupNavigation() {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { nc: NavController, destination: NavDestination, bundle: Bundle? ->
             when (destination.id) {
                 R.id.splashScreenFragment -> {
                     supportActionBar?.hide()
@@ -87,10 +75,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.searchFragment -> {
                     supportActionBar?.hide()
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
                 else -> {
                     binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-                    supportActionBar?.hide()
+                    supportActionBar?.show()
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
             }
@@ -98,17 +87,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home ->
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-        }
-
-        return true
-    }
-
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        val navController = this.findNavController(R.id.nav_host_fragment_container)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
     override fun onBackPressed() {
@@ -119,5 +100,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home ->
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment_container)) || super.onOptionsItemSelected(
+            item
+        )
+    }
 
 }
