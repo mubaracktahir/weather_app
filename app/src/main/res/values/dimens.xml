@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_20_margin">20dp</dimen>
-    <dimen name="margin_10_margin">10dp</dimen>
-    <dimen name="size_14sp_size">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="text_size_14">14dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
 </resources>
