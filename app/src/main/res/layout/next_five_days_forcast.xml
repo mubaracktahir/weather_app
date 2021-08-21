@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="data"
+            type="com.enike.weatherapp.Five_days_forcast_data" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
