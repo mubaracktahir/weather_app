@@ -4,13 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.enike.weatherapp.Five_days_forcast_data
-import com.enike.weatherapp.R
+import com.enike.weatherapp.NextFiveDaysDataClass
 import com.enike.weatherapp.core.BaseAdapter
 import com.enike.weatherapp.core.BaseViewHolder
 import com.enike.weatherapp.databinding.NextFiveDaysForcastBinding
 
-class Next5DaysRecyclerVIew : BaseAdapter<Five_days_forcast_data>(DiffCallBack()) {
+class Next5DaysRecyclerAdapter() : BaseAdapter<NextFiveDaysDataClass>(DiffCallBack()) {
+
+    var data = mutableListOf(
+        NextFiveDaysDataClass(" ", "Sunday", " ", " "),
+        NextFiveDaysDataClass(" ", "monday", " ", " "),
+        NextFiveDaysDataClass(" ", "Tuesday", " ", " "),
+        NextFiveDaysDataClass(" ", "Wednesday", " ", " "),
+    )
+
+    init {
+        submitList(data)
+    }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding =
         ForcastViewHolder.from(parent)
@@ -20,9 +30,13 @@ class Next5DaysRecyclerVIew : BaseAdapter<Five_days_forcast_data>(DiffCallBack()
         ForcastViewHolder(binding).mybind(item)
     }
 
+    override fun submitList(list: MutableList<NextFiveDaysDataClass>?) {
+        super.submitList(list)
+    }
+
     class ForcastViewHolder(val mybinding: ViewDataBinding) :
         BaseViewHolder<ViewDataBinding>(mybinding) {
-        fun mybind(item: Five_days_forcast_data) {
+        fun mybind(item: NextFiveDaysDataClass) {
             (mybinding as NextFiveDaysForcastBinding).data = item
         }
 
@@ -39,16 +53,17 @@ class Next5DaysRecyclerVIew : BaseAdapter<Five_days_forcast_data>(DiffCallBack()
 
     }
 
-    class DiffCallBack() : DiffUtil.ItemCallback<Five_days_forcast_data>() {
+
+    class DiffCallBack() : DiffUtil.ItemCallback<NextFiveDaysDataClass>() {
         override fun areContentsTheSame(
-            oldItem: Five_days_forcast_data,
-            newItem: Five_days_forcast_data
+            oldItem: NextFiveDaysDataClass,
+            newItem: NextFiveDaysDataClass
         ): Boolean =
             oldItem == newItem
 
         override fun areItemsTheSame(
-            oldItem: Five_days_forcast_data,
-            newItem: Five_days_forcast_data
+            oldItem: NextFiveDaysDataClass,
+            newItem: NextFiveDaysDataClass
         ): Boolean =
             oldItem.day_of_week == newItem.day_of_week
     }
