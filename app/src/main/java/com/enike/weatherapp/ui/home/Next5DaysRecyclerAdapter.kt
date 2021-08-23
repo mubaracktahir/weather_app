@@ -28,6 +28,7 @@ class Next5DaysRecyclerAdapter() : BaseAdapter<NextFiveDaysDataClass>(DiffCallBa
     override fun bind(binding: ViewDataBinding, position: Int) {
         val item = getItem(position)
         ForcastViewHolder(binding).mybind(item)
+        binding.executePendingBindings()
     }
 
     override fun submitList(list: MutableList<NextFiveDaysDataClass>?) {
