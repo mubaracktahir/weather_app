@@ -24,6 +24,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
 
     private fun initAdapter() {
+
+        // fake data for testing
         var data = mutableListOf(
             NextFiveDaysDataClass(" ", "Sunday", " ", "50"),
             NextFiveDaysDataClass(" ", "Monday", " ", "60"),
