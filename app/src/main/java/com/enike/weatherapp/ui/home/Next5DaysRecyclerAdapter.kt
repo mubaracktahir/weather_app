@@ -11,17 +11,6 @@ import com.enike.weatherapp.databinding.NextFiveDaysForcastBinding
 
 class Next5DaysRecyclerAdapter() : BaseAdapter<NextFiveDaysDataClass>(DiffCallBack()) {
 
-    var data = mutableListOf(
-        NextFiveDaysDataClass(" ", "Sunday", " ", " "),
-        NextFiveDaysDataClass(" ", "monday", " ", " "),
-        NextFiveDaysDataClass(" ", "Tuesday", " ", " "),
-        NextFiveDaysDataClass(" ", "Wednesday", " ", " "),
-    )
-
-    init {
-        submitList(data)
-    }
-
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding =
         ForcastViewHolder.from(parent)
 
@@ -29,10 +18,6 @@ class Next5DaysRecyclerAdapter() : BaseAdapter<NextFiveDaysDataClass>(DiffCallBa
         val item = getItem(position)
         ForcastViewHolder(binding).mybind(item)
         binding.executePendingBindings()
-    }
-
-    override fun submitList(list: MutableList<NextFiveDaysDataClass>?) {
-        super.submitList(list)
     }
 
     class ForcastViewHolder(val mybinding: ViewDataBinding) :
@@ -54,19 +39,16 @@ class Next5DaysRecyclerAdapter() : BaseAdapter<NextFiveDaysDataClass>(DiffCallBa
 
     }
 
-
     class DiffCallBack() : DiffUtil.ItemCallback<NextFiveDaysDataClass>() {
         override fun areContentsTheSame(
             oldItem: NextFiveDaysDataClass,
             newItem: NextFiveDaysDataClass
-        ): Boolean =
-            oldItem == newItem
+        ): Boolean = oldItem == newItem
 
         override fun areItemsTheSame(
             oldItem: NextFiveDaysDataClass,
             newItem: NextFiveDaysDataClass
-        ): Boolean =
-            oldItem.day_of_week == newItem.day_of_week
+        ): Boolean = oldItem.day_of_week == newItem.day_of_week
     }
 }
 

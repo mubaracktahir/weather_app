@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.enike.weatherapp.NextFiveDaysDataClass
 import com.enike.weatherapp.R
 import com.enike.weatherapp.core.BaseFragment
@@ -13,25 +15,26 @@ import com.enike.weatherapp.databinding.FragmentHomeBinding
 import timber.log.Timber
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    lateinit var adapter: Next5DaysRecyclerAdapter
     override fun start() {
         super.start()
+        initAdapter()
         binding.lifecycleOwner = this
 
+    }
+
+
+    private fun initAdapter() {
         var data = mutableListOf(
-            NextFiveDaysDataClass(" ", " ", " ", " "),
-            NextFiveDaysDataClass(" ", " ", " ", " "),
-            NextFiveDaysDataClass(" ", " ", " ", " "),
-            NextFiveDaysDataClass(" ", " ", " ", " "),
+            NextFiveDaysDataClass(" ", "Sunday", " ", "50"),
+            NextFiveDaysDataClass(" ", "Monday", " ", "60"),
+            NextFiveDaysDataClass(" ", "Tuesday", " ", "40"),
+            NextFiveDaysDataClass(" ", "Wednesday", " ", "10"),
         )
-        initForecast(data)
-
+        val adapter = Next5DaysRecyclerAdapter()
         binding.next5daysRecyclerview.adapter = adapter
+        adapter.submitList(data)
 
     }
 
-    private fun initForecast(list: MutableList<NextFiveDaysDataClass>) {
-        adapter = Next5DaysRecyclerAdapter()
-    }
 
 }
